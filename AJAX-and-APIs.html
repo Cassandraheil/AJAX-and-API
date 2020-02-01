@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cartoon-Gifs</title>
+</head>
+<body>
+     <div class="container">
+        <h1>Cartoon Gifs!</h1>
+
+        <form id="cartoon-form">
+            <label for="cartoon-input">Add your favorite cartoon!</label>
+            <input type="text" id="cartoon-input">
+            <br>
+            <input id="add-cartoon" type="submit" value="Add Cartoon">
+          </form>
+
+    </div>
+        <div id="cartoon"></div>
+        <div id="buttons"></div>
+
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+        var cartoons =["Adventure Time", "Avatar the Last Airbender", "Steven Universe"]
+
+        function showCartoonGif(){
+            var cartoon =$(this).attr("data-name");
+            // var APIKey = "ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI" //already in url tho do i need to add it differently?
+            var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q=cartoon"+cartoon+"&limit=25&offset=0&rating=PG-13&lang=en";
+            // var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q=cartoon&limit=25&offset=0&rating=PG-13&lang=en";
+
+            $.ajax({
+                url: queryURl,
+                method: "GET"
+            }).then(function(response){
+                console.log(response);
+                var cartoonInfo = $("<div> class='cartoonInfo'>");
+
+                var rateGrab = respose.Rated;  
+                var rates =$("<p>").text("Rating"+ rateGrab);
+                cartoonInfo.append(rates);
+
+                var gifGrab = response.gif;
+                var gif =$("<p>").attr("src", gifGrab);
+                cartoonInfo.append(gif);
+
+                $("#cartoon").prepend(cartoonInfo);                
+            });
+        }
+
+        function makeButton(){
+            $("#buttons").empty();
+
+            for (var i=0; i<cartoons.length; i++){
+                var newButton =$("<button>");
+                newButton.addClass("btn");
+                newButton.attr("data-name",cartoons[i]);
+                newButton.text(cartoons[i]);
+                $("#buttons").append(newButton);
+            }
+        }
+
+        $("#add-cartoon").on("click", function(event){
+            event.preventDefault();
+            var inputCartoon =$("#cartoon-input").val().trim();
+
+            cartoons.push(inputCartoon)
+
+            makeButton();
+        });
+
+        $(document).on("click","movie-btn", showCartoonGif);
+        showCartoonGif()
+        
+        makeButton();
+        
+    </script>
+</body>
+</html>
