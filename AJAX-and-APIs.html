@@ -16,8 +16,11 @@
           </form>
 
     </div>
-        <div id="cartoon"></div>
+    
         <div id="buttons"></div>
+        <div id="cartoon"></div>
+       
+  
 
         
 
@@ -28,8 +31,12 @@
 
         function showCartoonGif(){
             var cartoon =$(this).attr("data-name");
-            // var APIKey = "ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI" //already in url tho do i need to add it differently?
-            var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q=cartoon"+cartoon+"&limit=25&offset=0&rating=PG-13&lang=en";
+            console.log("this is cartoon" +cartoon);
+            // var APIKey = "ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI" 
+                    //already in url tho do i need to add it differently?
+            var queryURl = "https://api.giphy.com/v1/gifs/random?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q=cartoon&"+ cartoon+ "=0&rating=PG-13&lang=en";
+            // var queryURL="https://api.giphy.com/v1/gifs/random?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&tag=cats" 
+                    //from cats button one, idk why this wont work in this code. was just testing things out
             // var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q=cartoon&limit=25&offset=0&rating=PG-13&lang=en";
 
             $.ajax({
@@ -37,17 +44,23 @@
                 method: "GET"
             }).then(function(response){
                 console.log(response);
-                var cartoonInfo = $("<div> class='cartoonInfo'>");
-
-                var rateGrab = respose.Rated;  
-                var rates =$("<p>").text("Rating"+ rateGrab);
+                var cartoonInfo = $("<div class='cartoonInfo'>");
+         
+                var rateGrab = response.data.rating;  
+                var rates =$("<p>").text("Rating: "+ rateGrab);
                 cartoonInfo.append(rates);
+                console.log("rates: ", rates)
 
-                var gifGrab = response.gif;
-                var gif =$("<p>").attr("src", gifGrab);
+                // var gifGrab = response.data.image_original_url;
+                var gifGrab = response.data.fixed_height_downsampled_url;
+                var gif = $("<img>").attr("src", gifGrab);
+                gif.attr("alt", "cartoon images")
                 cartoonInfo.append(gif);
+                console.log("gif url: ", gif);
 
-                $("#cartoon").prepend(cartoonInfo);                
+                $("#cartoon").prepend(cartoonInfo);  
+
+                             
             });
         }
 
@@ -57,7 +70,7 @@
             for (var i=0; i<cartoons.length; i++){
                 var newButton =$("<button>");
                 newButton.addClass("btn");
-                newButton.attr("data-name",cartoons[i]);
+                newButton.attr("data-name", cartoons[i]);
                 newButton.text(cartoons[i]);
                 $("#buttons").append(newButton);
             }
@@ -72,10 +85,13 @@
             makeButton();
         });
 
-        $(document).on("click","movie-btn", showCartoonGif);
-        showCartoonGif()
-        
         makeButton();
+
+        $(document).on("click",".btn", showCartoonGif);
+
+        // showCartoonGif()
+        
+        
         
     </script>
 </body>
