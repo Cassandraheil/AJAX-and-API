@@ -57,7 +57,7 @@
                 cartoonInfo.append(rates);
                 // console.log("rates: ", rates)
 
-                var gifGrab = response.data[i].images.original_images.fixed_height_downsampled.url;
+                var gifGrab = response.data[i].images.fixed_height_downsampled.url;
                 var gif = $("<img>").attr("src", gifGrab);
                 gif.addClass("gif");
                 gif.attr("alt", "cartoon images");
