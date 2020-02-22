@@ -32,8 +32,9 @@
 
         function showCartoonGif(){
             var cartoon =$(this).attr("data-name");
+            var limit= 10
             console.log("this is cartoon" +cartoon);
-            var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q="+ cartoon+ "&limit=10&offset=0&rating=PG-13&lang=en";
+            var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q="+ cartoon+ "&limit="+ limit +"&offset=0&rating=PG-13&lang=en";
 
             $.ajax({
                 url: queryURl,
@@ -41,7 +42,7 @@
             }).then(function(response){
                 console.log(response);
                 var cartoonInfo = $("<div class='cartoonInfo'>");
-            for (var i=0; i<25; i++){
+            for (var i=0; i<limit; i++){
 
                 var titleGrab = response.data[i].title;  
                 var title =$("<p>").text("Title: "+ titleGrab);
@@ -52,30 +53,35 @@
                 var rateGrab = response.data[i].rating;  
                 var rates =$("<p>").text("Rating: "+ rateGrab);
                 rates.addClass("gif")
+                console.log("these are rates", rates)
                 cartoonInfo.append(rates);
-                console.log("rates: ", rates)
+                // console.log("rates: ", rates)
 
-                var gifGrab = response.data[i].images.original_still.url;
+                var gifGrab = response.data[i].images.original_images.fixed_height_downsampled.url;
                 var gif = $("<img>").attr("src", gifGrab);
-                gif.addClass("gif")
-                gif.attr("alt", "cartoon images")
+                gif.addClass("gif");
+                gif.attr("alt", "cartoon images");
+                // gif.attr("data-still", response.data[i].images.original_still.url);
+                // gif.attr("data-animate", response.data[i].images.fixed_height_downsampled.url);
+                gif.attr("data-state", "animate");
                 cartoonInfo.append(gif);
-                console.log("gif url: ", gif);
+                // console.log("gif url: ", gif);
                 $("#cartoon").prepend(cartoonInfo);
 
-                $("#cartoon").on("click", function(){
-                    console.log()
-                    if ($(this)=== gifGrab){
-                        console.log("this is a test")
-                        gifGrab = response.data[i].images.fixed_height_downsampled.url;    
-                    }
-                    else{
-                        console.log("should stop")
-                        gifGrab = response.data[i].images.original_still.url;
-                    }
-                })  
-            }
-                             
+                // $(".gif").on("click", function(){
+                //     var state = $(this).attr("data-state");
+                    
+                //     if (state === "still") {
+                //         $(this).attr(gifGrab, $(this).attr("data-animate"));
+                //         $(this).attr("data-state", "animate");
+                //         console.log("if its still");
+                //     } 
+                //     else {
+                //         $(this).attr(gifGrab, $(this).attr("data-still"));
+                //         $(this).attr("data-state", "still");
+                //         console.log("if its animated");
+                // }});
+            }               
             });
         }
 
