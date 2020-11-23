@@ -1,10 +1,13 @@
 .container{
     background-color: gray;
     padding: 50px;
+    border: 3px solid black;
     border-radius: 20px;
 }
 #buttons{
     padding: 20px;
+    display: inline;
+    /* background-color: aqua; */
 }
 button{
     padding: 10px;
@@ -13,7 +16,9 @@ button{
 #cartoon{
     text-align: center;
     display: inline-block;
-    border: 3px solid crimson;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: blue;
     width: 100%;
     padding-bottom: 50px;
 }
@@ -22,7 +27,16 @@ button{
     
 }
 .item{
-    background-color: blue;
+    background-color: rgba(128, 128, 128, 0.747);
     display: inline-block;
-    width: 25%;
+    width: auto;
+    padding: 10px;
+    margin: 5px;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+#cartoon-form{
+    display: inline-block;
+    /* background-color: blueviolet; */
+
 }
