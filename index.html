@@ -44,17 +44,20 @@
                 var cartoonInfo = $("<div class='cartoonInfo'>");
             for (var i=0; i<limit; i++){
 
+                var div = $("<div>")
+                div.addClass("item")
+
                 var titleGrab = response.data[i].title;  
                 var title =$("<p>").text("Title: "+ titleGrab);
                 title.addClass("gif")
-                cartoonInfo.append(title);
+                div.append(title);
                 console.log("title: ", title);
 
                 var rateGrab = response.data[i].rating;  
                 var rates =$("<p>").text("Rating: "+ rateGrab);
                 rates.addClass("gif")
                 console.log("these are rates", rates)
-                cartoonInfo.append(rates);
+                div.append(rates);
                 // console.log("rates: ", rates)
 
                 var gifGrab = response.data[i].images.fixed_height_downsampled.url;
@@ -64,8 +67,9 @@
                 // gif.attr("data-still", response.data[i].images.original_still.url);
                 // gif.attr("data-animate", response.data[i].images.fixed_height_downsampled.url);
                 gif.attr("data-state", "animate");
-                cartoonInfo.append(gif);
+                div.append(gif);
                 // console.log("gif url: ", gif);
+                cartoonInfo.append(div)
                 $("#cartoon").prepend(cartoonInfo);
 
                 // $(".gif").on("click", function(){

@@ -17,3 +17,12 @@ button{
     width: 100%;
     padding-bottom: 50px;
 }
+.cartoonInfo {
+    display: inline-block;
+    
+}
+.item{
+    background-color: blue;
+    display: inline-block;
+    width: 25%;
+}
