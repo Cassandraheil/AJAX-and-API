@@ -7,10 +7,10 @@
 </head>
 <body>
      <div class="container">
-        <h1>Cartoon Gifs!</h1>
-
-        <form id="cartoon-form">
-            <label for="cartoon-input">Add Your Favorite Cartoon!</label>
+         
+         <form id="cartoon-form">
+            <h1>Cartoon Gifs!</h1>
+            <label for="cartoon-input">Add Your Favorite Cartoon!</label> <br>
             <input type="text" id="cartoon-input">
             <br>
             <input id="add-cartoon" type="submit" value="Add Cartoon">
@@ -28,12 +28,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
 
-        var cartoons =["Adventure Time", "Avatar the Last Airbender", "Steven Universe"]
+        var cartoons =["Adventure Time", "Avatar the Last Airbender", "Steven Universe", "She-Ra and The Princesses of Power"]
 
         function showCartoonGif(){
             var cartoon =$(this).attr("data-name");
             var limit= 10
-            console.log("this is cartoon" +cartoon);
+            console.log("this is cartoon",cartoon);
             var queryURl = "https://api.giphy.com/v1/gifs/search?api_key=ESe6x6KrBEmJ9cQ8Z5QdiE7QbPS28OVI&q="+ cartoon+ "&limit="+ limit +"&offset=0&rating=PG-13&lang=en";
 
             $.ajax({
@@ -114,6 +114,7 @@
 
         $(document).on("click",".btn", showCartoonGif);
       
+        // $(document).ready(showCartoonGif("cartoon"));
         
     </script>
 </body>
